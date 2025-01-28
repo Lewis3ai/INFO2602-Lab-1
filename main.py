@@ -15,3 +15,5 @@ def hello_world():
     return 'Hello, World!'  # return 'Hello World' in response
 
 app.run(host='0.0.0.0', port=8080, debug=True)
+
+print("Hello world")
