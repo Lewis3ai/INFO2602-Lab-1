@@ -16,5 +16,5 @@ def hello_world():
 
 app.run(host='0.0.0.0', port=8080, debug=True)
 
-print("Hello world")
-print("This is from Github")
+
+
