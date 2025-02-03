@@ -13,10 +13,12 @@ with open('data.json') as f:
 def hello_world():
     return 'Hello, World!' # return 'Hello World' in response
 
-@app.route('/students')
-def get_students():
-    return jsonify(data)# return student data in response
-
+# route variables
+@app.route('/students/<id>')
+def get_student(id):
+  for student in data: 
+    if student['id'] == id: # filter out the students without the specified id
+      return jsonify(student)
+  return jsonify({'message': 'Student not found'}), 404
 
 app.run(host='0.0.0.0', port=8080)
-
