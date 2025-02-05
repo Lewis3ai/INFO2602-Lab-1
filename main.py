@@ -10,6 +10,9 @@ global data
 with open('data.json') as f:
         data = json.load(f)
 
+
+
+
 @app.route('/')
 def hello_world():
     return 'Hello, World!' # return 'Hello World' in response
@@ -20,10 +23,13 @@ def get_students():
   pref = request.args.get('pref') # get the parameter from url
   if pref:
     for student in data: # iterate dataset
-      if student['pref'] == pref: # select only the students with a given meal preference
+      if student['pref'] == pref: #select only the students with a given meal preference
         result.append(student) # add match student to the result
     return jsonify(result) # return filtered set if parameter is supplied
   return jsonify(data) # return entire dataset if no parameter supplied
+
+
+
 
 
 # Route to get statistics about meal preferences and program enrollments
@@ -37,4 +43,30 @@ def get_stats():
 
     return jsonify(stats_data)  # Return the statistics as JSON
 
-app.run(host='0.0.0.0', port=8080)
+
+
+
+# Arithmetic routes: add, subtract, multiply, and divide
+@app.route('/add/<int:a>/<int:b>')
+def add(a, b):
+    return jsonify({"result": a + b})
+
+@app.route('/subtract/<int:a>/<int:b>')
+def subtract(a, b):
+    return jsonify({"result": a - b})
+
+@app.route('/multiply/<int:a>/<int:b>')
+def multiply(a, b):
+    return jsonify({"result": a * b})
+
+@app.route('/divide/<int:a>/<int:b>')
+def divide(a, b):
+    if b == 0:
+        return jsonify({"error": "Cannot divide by zero"}), 400
+    return jsonify({"result": a / b})
+
+
+
+# Run the Flask application
+if __name__ == '__main__':
+  app.run(host='0.0.0.0', port=8080)
