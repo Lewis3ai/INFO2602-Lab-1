@@ -15,7 +15,11 @@ with open('data.json') as f:
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!' # return 'Hello World' in response
+        return 'Hello, World!', 200, {'Content-Type': 'text/html'} # return with proper MIME type and status code
+
+@app.errorhandler(404)
+def not_found(e):
+        return 'Page not found', 404, {'Content-Type': 'text/html'}
 
 @app.route('/students')
 def get_students():
@@ -69,4 +73,4 @@ def divide(a, b):
 
 # Run the Flask application
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=8080, debug=True)
