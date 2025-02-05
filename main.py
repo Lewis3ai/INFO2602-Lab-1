@@ -15,7 +15,16 @@ with open('data.json') as f:
 
 @app.route('/')
 def hello_world():
-        return 'Hello, World!', 200, {'Content-Type': 'text/html'} # return with proper MIME type and status code
+    try:
+        return jsonify({
+             'message': 'Hello, World!',
+            'status': 'success'
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'error': str(e),
+            'status': 'error'
+        }), 500
 
 @app.errorhandler(404)
 def not_found(e):
