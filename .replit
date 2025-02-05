@@ -12,3 +12,4 @@ LANG = "en_US.UTF-8"
 [[ports]]
 localPort = 8080
 externalPort = 80
+
