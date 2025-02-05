@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import json
+from collections import defaultdict
 
 app = Flask(__name__)
 
@@ -23,5 +24,17 @@ def get_students():
         result.append(student) # add match student to the result
     return jsonify(result) # return filtered set if parameter is supplied
   return jsonify(data) # return entire dataset if no parameter supplied
+
+
+# Route to get statistics about meal preferences and program enrollments
+@app.route('/stats')
+def get_stats():
+    stats_data = defaultdict(int)
+
+    for student in data:
+        stats_data[student['pref']] += 1  # Count meal preferences
+        stats_data[student['programme']] += 1  # Count program enrollments
+
+    return jsonify(stats_data)  # Return the statistics as JSON
 
 app.run(host='0.0.0.0', port=8080)
