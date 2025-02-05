@@ -15,17 +15,13 @@ with open('data.json') as f:
 
 @app.route('/')
 def hello_world():
-    try:
-        return jsonify({
-             'message': 'Hello, World!',
-            'status': 'success'
-        }), 200
-    except Exception as e:
-        return jsonify({
-            'error': str(e),
-            'status': 'error'
-        }), 500
-
+    response = jsonify({
+        'message': 'Hello, World!',
+        'status': 'success'
+    })
+    response.headers['Content-Type'] = 'application/json'
+    return response
+    
 @app.errorhandler(404)
 def not_found(e):
         return 'Page not found', 404, {'Content-Type': 'text/html'}
